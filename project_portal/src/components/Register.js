@@ -6,6 +6,8 @@ import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
+import ChipInput from './ChipInput';
+
 
 function logOut(){
     localStorage.clear()
@@ -14,7 +16,8 @@ function logOut(){
 
 export default function Register(){
     return(
-    <Box sx={{ flexGrow: 1 }}>
+      <div>
+        <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
         <Toolbar>
           <IconButton
@@ -33,6 +36,9 @@ export default function Register(){
         </Toolbar>
       </AppBar>
     </Box>
+    <ChipInput></ChipInput>
+      </div>
+    
 
     )
 }

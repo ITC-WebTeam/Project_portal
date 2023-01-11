@@ -2,7 +2,6 @@ import * as React from 'react';
 import CircularProgress from '@mui/material/CircularProgress';
 import Box from '@mui/material/Box';
 import axios from 'axios';
-import { useLocation } from 'react-router-dom';
 
 export default function Auth() {
     try {
