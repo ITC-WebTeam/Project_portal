@@ -1,0 +1,44 @@
+@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@500;700&display=swap');
+
+.outer-div{
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+}
+
+.left-container{
+    width: 50vw;
+    height: 100vh;
+    background-color: rgb(124, 137, 255);
+    text-align: center;
+    color: white;
+    font-family: Rubik;
+    padding-top: 7vw;
+    border-radius: 10px;
+}
+
+.left-container p{
+    text-align: center;
+    width: 35vw;
+    margin: auto;
+    margin-top: 2vw;
+    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-weight: bold;
+}
+
+.sticker{
+    width: 70%;
+}
+
+.right-container{
+    width: 50vw;
+    display: flex;
+    justify-content: center;
+    padding-top: 5vh;
+}
+
+.top img{
+    border-radius: 50%;
+    width: 40px;
+}
+
