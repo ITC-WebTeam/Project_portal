@@ -12,16 +12,18 @@ import DeleteIcon from '@mui/icons-material/Delete'
 import { useEffect } from 'react';
 import axios from 'axios';
 
-const data = JSON.parse(localStorage.getItem('project_data'));
-const pic = data.profile_picture;
-const name = data.name;
-const roll_number = data.roll_number
 
-// var skills = []
-// var topSkills = []
+
+
+
 export default function Register() {
 
+  const data = JSON.parse(localStorage.getItem('project_data'));
+  const pic = data.profile_picture;
+  const name = data.name;
+  const roll_number = data.roll_number 
   const navigate = useNavigate()
+  
 
   const [selectedSkills, setSelectedSkills] = useState([])
   const [selectedTopSkills, setSelectedTopSkills] = useState([])
@@ -76,7 +78,19 @@ export default function Register() {
   // }
 
   function submit(){
-    axios.post('http://localhost:8000/')
+    axios.post('http://localhost:8000/userdata', {
+          roll_number: roll_number,
+          name: name,
+          topskills: selectedTopSkills,
+          skills: selectedSkills,
+          resume: '',
+    })
+    .then((res)=>{
+      console.log(res)
+    })
+    .catch((error)=>{
+      console.log(error)
+    })
   }
 
   return (
