@@ -18,6 +18,7 @@ from rest_framework.permissions import AllowAny
 
 from .models import *
 
+#areeb bhai op
 def handle_uploaded_file(f):  
     with open('api/media/'+f.name, 'wb+') as destination:  
         for chunk in f.chunks():  

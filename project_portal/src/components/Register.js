@@ -22,6 +22,7 @@ export default function Register() {
   const pic = data.profile_picture;
   const name = data.name;
   const roll_number = data.roll_number
+  var resume;
   const navigate = useNavigate()
 
 
@@ -63,9 +64,13 @@ export default function Register() {
     setTopSkillOption(oldArray => [...oldArray, value]);
   }
 
-  function logOut() {
-    localStorage.clear()
-    navigate('/')
+  // function logOut() {
+  //   localStorage.clear()
+  //   navigate('/')
+  // }
+
+  function handleFileInput(e){
+    resume = e.target.value;
   }
 
   // function handleChange(e) {
@@ -83,7 +88,7 @@ export default function Register() {
       name: name,
       topskills: selectedTopSkills,
       skills: selectedSkills,
-      resume: '',
+      resume: resume,
     })
       .then((res) => {
         console.log(res)
@@ -91,6 +96,7 @@ export default function Register() {
       .catch((error) => {
         console.log(error)
       })
+    // console.log(roll_number, name, selectedTopSkills, selectedSkills, resume)
   }
 
   return (
@@ -150,7 +156,7 @@ export default function Register() {
             select
             label="Select"
             defaultValue="India"
-            style={{ width: '20vw' }}
+            style={{ width: '20vw', textAlign: 'left' }}
             name='skills'
             onChange={e => skillChangeHandler(e)}
           >
@@ -165,10 +171,10 @@ export default function Register() {
               <Chip color='primary' onDelete={e => handleSkillsDelete(e, value)} deleteIcon={<DeleteIcon color='red' />} key={value} label={value} />
             ))}
           </div>
-          <p>
+          {/* <p>
             Whatsapp No:
-          </p>
-          <TextField
+          </p> */}
+          {/* <TextField
             label='Whatsapp no.'
             style={{ width: '20vw' }}
             InputProps={{
@@ -177,14 +183,14 @@ export default function Register() {
               )
             }}
           >
-          </TextField>
+          </TextField> */}
           <p>
             Upload Resume:
           </p>
           <div style={{ textAlign: 'center', width: '100%' }}>
             <Button className='mb-2' variant="contained" component="label">
               Upload
-              <input hidden multiple type="file" />
+              <input hidden multiple onChange={e =>handleFileInput(e)} type="file" />
             </Button><br />
             <Button onClick={submit} variant='contained'>Submit</Button>
           </div>
