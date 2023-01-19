@@ -18,6 +18,12 @@ from rest_framework.permissions import AllowAny
 
 from .models import *
 
+def handle_uploaded_file(f):  
+    with open('api/media/'+f.name, 'wb+') as destination:  
+        for chunk in f.chunks():  
+            destination.write(chunk) 
+
+@permission_classes((AllowAny,))
 @csrf_exempt
 def posts(request):
     headers = { "Authorization": "Basic "
@@ -44,3 +50,24 @@ def posts(request):
     token,created = Token.objects.get_or_create(user = user)
     user_data = {'name':data['first_name'] + ' ' + data['last_name'],'roll_number':data['roll_number'],'email':data['email'],'token':token.key, 'profile_picture':'https://gymkhana.iitb.ac.in'+data['profile_picture']}
     return JsonResponse(user_data)
+
+@api_view(['POST','PUT'])
+def register(request):
+    if request.method == 'POST':
+        handle_uploaded_file(request.FILES['resume'])
+        try:
+            user = UserDetails.objects.get(roll_number = request.POST['roll_number'])
+            user.topskills = request.POST['topskills']
+            user.skills = request.POST['skills']
+            user.resume = request.FILES['resume'].name
+        except:
+            user = UserDetails(name=request.POST['name'],roll_number = request.POST['roll_number'],topskills = request.POST['topskills'],skills=request.POST['skills'],resume = request.FILES['resume'].name)
+        user.save()
+        return JsonResponse({'success':True})
+    elif request.method == 'PUT':
+        data = JSONParser().parse(request)
+        try:
+            user = UserDetails.objects.get(roll_number=data['roll_number'])
+        except:
+            return JsonResponse({'success':False})
+        return JsonResponse({'success':True,'topskills':user.topskills,'skills':user.topskills,'resume':request.build_absolute_uri(user.resume.url)})
