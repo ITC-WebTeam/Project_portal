@@ -6,6 +6,10 @@
     display: flex;
 }
 
+p{
+    margin: 1rem 0 1rem    ;
+}
+
 .left-container{
     width: 50vw;
     height: 100vh;

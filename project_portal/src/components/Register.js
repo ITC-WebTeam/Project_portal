@@ -21,9 +21,9 @@ export default function Register() {
   const data = JSON.parse(localStorage.getItem('project_data'));
   const pic = data.profile_picture;
   const name = data.name;
-  const roll_number = data.roll_number 
+  const roll_number = data.roll_number
   const navigate = useNavigate()
-  
+
 
   const [selectedSkills, setSelectedSkills] = useState([])
   const [selectedTopSkills, setSelectedTopSkills] = useState([])
@@ -50,7 +50,7 @@ export default function Register() {
     const value = event.target.value
     setSelectedTopSkills(oldArray => [...oldArray, value]);
     setTopSkillOption(prev => prev.filter(topSkillOption => topSkillOption !== value));
- 
+
   }
 
   const handleSkillsDelete = (e, value) => {
@@ -77,20 +77,20 @@ export default function Register() {
   //   // console.log(user)
   // }
 
-  function submit(){
+  function submit() {
     axios.post('http://localhost:8000/userdata', {
-          roll_number: roll_number,
-          name: name,
-          topskills: selectedTopSkills,
-          skills: selectedSkills,
-          resume: '',
+      roll_number: roll_number,
+      name: name,
+      topskills: selectedTopSkills,
+      skills: selectedSkills,
+      resume: '',
     })
-    .then((res)=>{
-      console.log(res)
-    })
-    .catch((error)=>{
-      console.log(error)
-    })
+      .then((res) => {
+        console.log(res)
+      })
+      .catch((error) => {
+        console.log(error)
+      })
   }
 
   return (
@@ -116,16 +116,16 @@ export default function Register() {
           <h3>Welcome, {name}</h3>
           <h2>Enter your details:</h2>
           {/* <div style={{'display': 'flex'}}> */}
-          <p>
+          <p >
             Top Skills:
           </p>
           <TextField
             id="outlined-select-currency"
             select
-            sx={{'textAlign': 'left'}}
+            sx={{ 'textAlign': 'left' }}
             label="Select"
             defaultValue="India"
-            style={{ width: '80%' }}
+            style={{ width: '20vw' }}
             name='topskills'
             onChange={e => topSkillChangeHandler(e)}
           >
@@ -137,11 +137,11 @@ export default function Register() {
           </TextField>
           <div>
             {selectedTopSkills.map((value) => (
-              <Chip color='primary' onDelete={e => handleTopSkillsDelete(e, value)} deleteIcon={<DeleteIcon color='red' />} key={value} label={value} />
+              <Chip color='primary' style={{ margin: '0.5rem 0.1rem 0' }} onDelete={e => handleTopSkillsDelete(e, value)} deleteIcon={<DeleteIcon color='red' />} key={value} label={value} />
             ))}
           </div>
           {/* </div> */}
-          
+
           <p>
             Other Skills:
           </p>
@@ -150,7 +150,7 @@ export default function Register() {
             select
             label="Select"
             defaultValue="India"
-            style={{ width: '80%' }}
+            style={{ width: '20vw' }}
             name='skills'
             onChange={e => skillChangeHandler(e)}
           >
@@ -170,7 +170,7 @@ export default function Register() {
           </p>
           <TextField
             label='Whatsapp no.'
-            style={{ width: '80%' }}
+            style={{ width: '20vw' }}
             InputProps={{
               startAdornment: (
                 <CallIcon />
@@ -181,19 +181,15 @@ export default function Register() {
           <p>
             Upload Resume:
           </p>
-            <div style={{textAlign: 'center', width: '100%'}}>
-          <Button variant="contained" component="label">
-            Upload
-            <input hidden multiple type="file" />
-          </Button><br />
-          <Button onClick={submit} variant='contained'>Submit</Button>
-            </div>
-
-
+          <div style={{ textAlign: 'center', width: '100%' }}>
+            <Button className='mb-2' variant="contained" component="label">
+              Upload
+              <input hidden multiple type="file" />
+            </Button><br />
+            <Button onClick={submit} variant='contained'>Submit</Button>
+          </div>
         </div>
-
       </div>
-
     </div>
 
 
