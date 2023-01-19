@@ -17,12 +17,11 @@ import axios from 'axios';
 
 
 export default function Register() {
-
+  var resume;
   const data = JSON.parse(localStorage.getItem('project_data'));
   const pic = data.profile_picture;
   const name = data.name;
   const roll_number = data.roll_number
-  var resume;
   const navigate = useNavigate()
 
 
@@ -30,14 +29,6 @@ export default function Register() {
   const [selectedTopSkills, setSelectedTopSkills] = useState([])
   const [skillOption, setSkillOption] = useState(['India', 'Pakistan', 'Bangladesh', 'Russia'])
   const [topSkillOption, setTopSkillOption] = useState(['India', 'Pakistan', 'Bangladesh', 'Russia'])
-  // const [user, setUser] = useState({
-  //   roll_number: roll_number,
-  //   name: name,
-  //   topskills: [],
-  //   skills: [],
-  //   resume: '',
-  // })
-
 
   const skillChangeHandler = (event) => {
     const value = event.target.value
@@ -51,7 +42,6 @@ export default function Register() {
     const value = event.target.value
     setSelectedTopSkills(oldArray => [...oldArray, value]);
     setTopSkillOption(prev => prev.filter(topSkillOption => topSkillOption !== value));
-
   }
 
   const handleSkillsDelete = (e, value) => {
@@ -70,25 +60,20 @@ export default function Register() {
   // }
 
   function handleFileInput(e){
-    resume = e.target.value;
+   resume = e.target.files;
   }
 
-  // function handleChange(e) {
-  //   const { value, name } = e.target
-  //   setUser(prevUser => ({
-  //     ...prevUser, [name]: value
-  //   })
-  //   )
-  //   // console.log(user)
-  // }
-
   function submit() {
-    axios.post('http://localhost:8000/userdata', {
-      roll_number: roll_number,
-      name: name,
-      topskills: selectedTopSkills,
-      skills: selectedSkills,
-      resume: resume,
+    let formData = new FormData();
+    formData.append('roll_number', roll_number);
+    formData.append('name', name)
+    formData.append('topskills', selectedTopSkills)
+    formData.append('skills', selectedSkills)
+    formData.append('resume', resume[0])
+
+    console.log(resume[0])
+    axios.post('http://localhost:8000/register', formData, {
+      headers: {Authorization: 'Token '+data.token}
     })
       .then((res) => {
         console.log(res)
@@ -96,7 +81,7 @@ export default function Register() {
       .catch((error) => {
         console.log(error)
       })
-    // console.log(roll_number, name, selectedTopSkills, selectedSkills, resume)
+
   }
 
   return (
@@ -188,11 +173,11 @@ export default function Register() {
             Upload Resume:
           </p>
           <div style={{ textAlign: 'center', width: '100%' }}>
-            <Button className='mb-2' variant="contained" component="label">
+            <Button className='mb-2' variant="contained" color='success' component="label">
               Upload
               <input hidden multiple onChange={e =>handleFileInput(e)} type="file" />
             </Button><br />
-            <Button onClick={submit} variant='contained'>Submit</Button>
+            <Button onClick={submit} style={{width: '40%', height: '30%'}} variant='contained'>Submit</Button>
           </div>
         </div>
       </div>

@@ -19,7 +19,7 @@ from rest_framework.permissions import AllowAny
 from .models import *
 
 def handle_uploaded_file(f):  
-    with open('api/media/'+f.name, 'wb+') as destination:  
+    with open('project/media/'+f.name, 'wb+') as destination:  
         for chunk in f.chunks():  
             destination.write(chunk) 
 
@@ -71,3 +71,4 @@ def register(request):
         except:
             return JsonResponse({'success':False})
         return JsonResponse({'success':True,'topskills':user.topskills,'skills':user.topskills,'resume':request.build_absolute_uri(user.resume.url)})
+

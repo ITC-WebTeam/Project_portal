@@ -142,4 +142,4 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 MEDIA_URL = 'media/'
-MEDIA_ROOT = os.path.join(os.path.dirname(BASE_DIR),"Backend/techpoints/media")
+MEDIA_ROOT = os.path.join(os.path.dirname(BASE_DIR),"Backend/project/media")
